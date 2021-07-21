@@ -1,5 +1,7 @@
 import React from 'react';
-import { Feather } from '@expo/vector-icons';
+
+import { HighlightCard } from '../../components/HighlightCard';
+import TransactionCard from '../../components/TransactionCard';
 
 import { 
   Container,
@@ -15,7 +17,6 @@ import {
   Transactions,
   Title,
 } from './styles';
-import { HighlightCard } from '../../components/HighlightCard';
 
 export function Dashboard() {
   return (
@@ -62,6 +63,8 @@ export function Dashboard() {
 
       <Transactions>
         <Title>Listagem</Title>
+
+        <TransactionCard />
       </Transactions>
     </Container>
   )
