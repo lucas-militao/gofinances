@@ -123,18 +123,11 @@ export function Register() {
   }
 
   useEffect(() => {
-    async function loadData() {
-      const data = await AsyncStorage.getItem(dataKey);
-      console.log(JSON.parse(data!));
+    async function removeAll() {
+      await AsyncStorage.removeItem(dataKey);
     }
 
-    loadData();
-
-    // async function removeAll() {
-    //   await AsyncStorage.removeItem(dataKey);
-    // }
-
-    // removeAll();
+    removeAll();
   }, [])
 
   return (
