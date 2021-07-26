@@ -112,7 +112,7 @@ export function Resume() {
 
   useFocusEffect(useCallback(() => {
     loadData();
-  }, [selectedDate]))
+  }, [selectedDate]));
 
   return(
     <Container>
