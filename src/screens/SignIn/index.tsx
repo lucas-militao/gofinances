@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import AppleSvg from '../../assets/apple.svg';
 import GoogleSvg from '../../assets/google-icon.svg';
 import LogoSvg from '../../assets/finance.svg';
-
-import { AuthContext } from "../../AuthContext";
 
 import { 
   Container,
@@ -17,11 +15,13 @@ import {
   FooterWrapper
 } from './styles';
 import { SignInSocialButton } from "../../components/SignInSocialButton";
+import { useAuth } from "../../hooks/auth";
 
 
 
 export function SignIn() {
-  const data = useContext(AuthContext);
+  const { user } = useAuth();
+  console.log(user);
 
   return(
     <Container>
