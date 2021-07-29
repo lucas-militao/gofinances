@@ -10,7 +10,9 @@ import {
 } from 'react';
 
 import * as AuthSession from 'expo-auth-session';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -26,6 +28,7 @@ interface User {
 interface IAuthContextData {
   user: User;
   signInWithGoogle(): Promise<void>;
+  signInWithApple(): Promise<void>;
 }
 
 interface AuthorizationResponse {
@@ -64,9 +67,36 @@ function AuthProvider({ children }: AuthProviderProps) {
           photo: userInfo.picture,
         });
 
-        console.log(userInfo);
+        await AsyncStorage.setItem('@gofinances:user',JSON.stringify(user));
       }
 
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async function signInWithApple() {
+    try {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ]
+      });
+      
+      if (credential) {
+        const userLogged = {
+          id: String(credential.user),
+          email: credential.email!,
+          name: credential.fullName!.givenName!,
+          photo: undefined,
+        };
+
+        setUser(userLogged);
+        await AsyncStorage.setItem('@gofinances:user',JSON.stringify(user));
+      }
+
+      
     } catch (error) {
       throw new Error(error);
     }
@@ -76,7 +106,8 @@ function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider value={
       { 
         user, 
-        signInWithGoogle 
+        signInWithGoogle,
+        signInWithApple
       }
     }>
       { children }
