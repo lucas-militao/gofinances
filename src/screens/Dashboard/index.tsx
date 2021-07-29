@@ -8,6 +8,7 @@ import { useTheme } from 'styled-components';
 
 import { HighlightCard } from '../../components/HighlightCard';
 import TransactionCard, { TransactionCardProps } from '../../components/TransactionCard';
+import { useAuth } from '../../hooks/auth';
 
 import { 
   Container,
@@ -49,10 +50,7 @@ export function Dashboard() {
 
   const theme = useTheme();
 
-  async function getUser() {
-    const user = await AsyncStorage.getItem('@gofinances:user');
-    console.log(user);
-  }
+  const { user, signOut } = useAuth();
 
   function getLastTransactionDate(
     collection: DataListProps[], 
@@ -163,15 +161,15 @@ export function Dashboard() {
               <UserWrapper>
                 <UserInfo>
                   <Photo 
-                    source={{ uri: 'https://avatars.githubusercontent.com/u/35609035?v=4' }}
+                    source={{ uri: user.photo }}
                   />
                   <User>
                     <UserGreeting>Olá, </UserGreeting>
-                    <UserName>Lucas</UserName>
+                    <UserName>{user.name}</UserName>
                   </User>
                 </UserInfo>  
 
-                <LogoutButton onPress={getUser}>
+                <LogoutButton onPress={signOut}>
                   <Icon name="power"/>
                 </LogoutButton>
 
