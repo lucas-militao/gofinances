@@ -46,12 +46,13 @@ import {
 } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
+import { useAuth } from '../../hooks/auth';
 
 export function Register() {
-  const dataKey = '@gofinances:transactions';
-
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+
+  const { user } = useAuth();
   
   const [category, setCategory] = useState({
     key: 'category',
@@ -98,6 +99,7 @@ export function Register() {
     }
 
     try {
+      const dataKey = `@gofinances:transactions_user:${user.id}`
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data): [];
 
@@ -122,14 +124,6 @@ export function Register() {
       Alert.alert('Não foi possível salvar');
     }
   }
-
-  useEffect(() => {
-    async function removeAll() {
-      await AsyncStorage.removeItem(dataKey);
-    }
-
-    removeAll();
-  }, [])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

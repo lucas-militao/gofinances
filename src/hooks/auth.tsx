@@ -70,6 +70,8 @@ function AuthProvider({ children }: AuthProviderProps) {
           photo: userInfo.picture
         }
 
+        setUser(userLogged);
+
         await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
       }
 
@@ -97,6 +99,8 @@ function AuthProvider({ children }: AuthProviderProps) {
           name,
           photo,
         } as User;
+
+        setUser(userLogged);
 
         await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
       }
