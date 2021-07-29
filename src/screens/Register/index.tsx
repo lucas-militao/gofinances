@@ -48,7 +48,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 
 export function Register() {
-  const dataKey = '@gofinance:transactions';
+  const dataKey = '@gofinances:transactions';
 
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);

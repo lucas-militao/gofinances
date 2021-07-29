@@ -49,6 +49,11 @@ export function Dashboard() {
 
   const theme = useTheme();
 
+  async function getUser() {
+    const user = await AsyncStorage.getItem('@gofinances:user');
+    console.log(user);
+  }
+
   function getLastTransactionDate(
     collection: DataListProps[], 
     type: 'positive' | 'negative') 
@@ -166,7 +171,7 @@ export function Dashboard() {
                   </User>
                 </UserInfo>  
 
-                <LogoutButton onPress={() => {}}>
+                <LogoutButton onPress={getUser}>
                   <Icon name="power"/>
                 </LogoutButton>
 
