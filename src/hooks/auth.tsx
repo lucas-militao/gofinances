@@ -41,7 +41,7 @@ interface AuthorizationResponse {
   type: string;
 }
 
-export const AuthContext = createContext({} as IAuthContextData);
+const AuthContext = createContext({} as IAuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
@@ -79,7 +79,6 @@ function AuthProvider({ children }: AuthProviderProps) {
       throw new Error(error);
     }
   }
-
   async function signInWithApple() {
     try {
       const credential = await AppleAuthentication.signInAsync({
@@ -110,12 +109,10 @@ function AuthProvider({ children }: AuthProviderProps) {
       throw new Error(error);
     }
   }
-
   async function signOut() {
     setUser({} as User);
     await AsyncStorage.removeItem(userStorageKey);
   }
-
   useEffect(() => {
     async function loadStorageData() {
       const userStorage = await AsyncStorage.getItem(userStorageKey);
