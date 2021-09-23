@@ -76,7 +76,8 @@ function AuthProvider({ children }: AuthProviderProps) {
       }
 
     } catch (error) {
-      throw new Error(error);
+      const err = error as unknown as Error;
+      throw new Error(err.message);
     }
   }
   async function signInWithApple() {
@@ -106,7 +107,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       
     } catch (error) {
-      throw new Error(error);
+      const err = error as unknown as Error;
+      throw new Error(err.message);
     }
   }
   async function signOut() {

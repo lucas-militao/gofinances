@@ -26,8 +26,6 @@ describe('Input Component', () => {
       }
     );
 
-    debug();
-
     const inputComponent = getByTestId('input-email');
 
     expect(inputComponent.props.style[0].borderColor)
