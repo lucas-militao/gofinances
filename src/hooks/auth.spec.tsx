@@ -21,20 +21,18 @@ jest.mock('expo-auth-session', () => {
   }
 });
 
-
 describe('Auth Hook', () => {
-
   it('should be able to sign in with Google account existing', async () => {
-    global.fetch = jest.fn(() => new Promise<any>(resolve => {  
-      resolve({ json: () => {
-        return {
-          id: 'userInfo.id',
-          email: 'userInfo.email',
-          name: 'userInfo.given_name',
-          photo: 'userInfo.picture'
-        } as User
-      }
-    })
+      global.fetch = jest.fn(() => new Promise<any>(resolve => {  
+          resolve({ json: () => {
+            return {
+              id: 'test_id',
+              email: 'test@email.com',
+              name: 'test',
+              photo: 'test.png'
+            } as User
+          }
+        })
       }) 
     );
 
@@ -44,6 +42,6 @@ describe('Auth Hook', () => {
 
     await act(() => result.current.signInWithGoogle());
 
-    expect(result.current.user).toBeTruthy();
+    expect(result.current.user.email).toBe('test@email.com');
   });
 })
