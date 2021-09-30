@@ -45,7 +45,6 @@ import {
   TransactionsTypes
 } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from 'react';
 import { useAuth } from '../../hooks/auth';
 
 export function Register() {
@@ -171,6 +170,7 @@ export function Register() {
             <CategorySelectButton 
               title={category.name}
               onPress={handleOpenSelectCategoryModal}
+              testID="button-category"
             />
           </Fields>
 
@@ -180,7 +180,7 @@ export function Register() {
           />
         </Form>
 
-        <Modal visible={categoryModalOpen}>
+        <Modal  testID="modal-category" visible={categoryModalOpen}>
           <CategorySelect
             category={category}
             setCategory={setCategory}
