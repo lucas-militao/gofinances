@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
 import { Register } from '.';
 import { ThemeProvider } from 'styled-components/native';
@@ -14,7 +14,7 @@ const Providers: React.FC = ({ children }) => (
 );
 
 describe('Register Screen', () => {
-  it('should be open category modal whe user click on button', () => {
+  it('should be open category modal whe user click on button', async () => {
     const { getByTestId } = render(
       <Register />,
       {
@@ -26,6 +26,8 @@ describe('Register Screen', () => {
     const buttonCategory = getByTestId('button-category');
     fireEvent.press(buttonCategory);
 
-    expect(categoryModal.props.visible).toBeTruthy();
+    await waitFor(() => {
+      expect(categoryModal.props.visible).toBeTruthy();
+    });
   })
 })
